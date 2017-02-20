@@ -22,7 +22,9 @@ exports.all = function(req, res){
 exports.create = function(req, res){
   Company.create(req.body, function(err, result){
      if(!err){
-         return res.json(result);
+         Company.find({}, function(err, companies){
+             return res.json(companies);
+         });
      }
      else{
          return res.send(err);
@@ -50,7 +52,9 @@ exports.get = function(req, res){
 exports.update = function(req, res){
     Company.updateById(req.params.id, req.body, function(err, result){
         if(!err){
-            return res.json(result);
+            Company.find({}, function(err, companies){
+                return res.json(companies);
+            });
         }
         else{
             return res.send(err);
@@ -62,9 +66,11 @@ exports.update = function(req, res){
  * delete company
  */
 exports.delete = function(req, res){
-    Company.remove({_id: req.params.id}, function(err, result){
+    Company.removeById({_id: req.params.id}, function(err, result){
        if(!err){
-           return res.json(result);
+           Company.find({}, function(err, companies){
+               return res.json(companies);
+           });
        }
        else{
            return res.send(err);

@@ -1,79 +1,68 @@
 <!doctype html>
 <html ng-app="companyTodo">
 <head>
-    <!-- META -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
-
-    <title>Node/Angular Todo App</title>
-
-    <!-- SCROLLS -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
-    <style>
-        html 					{ overflow-y:scroll; }
-        body 					{ padding-top:50px; }
-        #todo-list 				{ margin-bottom:30px; }
-        #todo-form 	 			{ margin-bottom:50px; }
-    </style>
-
-    <!-- SPELLS -->
+    <title>Basic Binding App</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-    <script src="javascripts/core.js"></script>
+    <link rel="stylesheet" type="text/css" href="stylesheets/main.css" />
+    <script src="javascripts/controllers/companyController.js"></script>
+    <script src="javascripts/services/companyService.js"></script>
 </head>
+<body>
+<div ng-controller="companyController">
 
-<!-- SET THE CONTROLLER AND GET ALL Comapny WITH INITIALIZE FUNCTION -->
-<body ng-controller="companyController">
-<div class="container">
-
-    <!-- HEADER AND TODO COUNT -->
-    <div class="jumbotron text-center">
-        <h1>I'm a Todo-aholic <span class="label label-info">{{ companies.length }}</span></h1>
+    <h2> Add new book </h2>
+    <div style="border: 1px solid blue">
+        <form name="CompanyForm">
+            <table>
+                <tr>
+                    <td>Name: </td>
+                    <td> <input type="text" ng-model="company.name" name="name" required/></td>
+                    <td><span style="color: red;" ng-show="CompanyForm.name.$error.required">Name is required</span></td>
+                </tr>
+                <tr>
+                    <td>NumberOfEmployees: </td>
+                    <td> <input type="number" ng-model="company.numberOfEmployees" name="numberOfEmployees" required/></td>
+                    <td><span style="color: red;" ng-show="CompanyForm.numberOfEmployees.$error.required">Number of employees is required</span></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="Button" value="Add to list" ng-click="company && createCompany(company)" />
+                    </td>
+                </tr>
+            </table>
+        </form>
     </div>
 
-    <!-- TODO LIST -->
-    <div id="todo-list" class="row">
-        <div class="col-sm-4 col-sm-offset-4">
+    <div style="padding-top:15px;">
+        <table border="1" class="mytable">
+            <tr>
+                <td>ID</td>
+                <td>Name</td>
+                <td>NumberOfEmployees</td>
+                <td>Action</td>
+            </tr>
 
-            <!-- LOOP OVER THE TODOS IN $scope.todos -->
-            <div class="checkbox" ng-repeat="company in companies">
-                <label>
-                    <input type="checkbox" ng-click="deleteCompany(company._id)"> {{ company.name }}
-                </label>
-            </div>
+            <tr ng-repeat="company in companies">
+                <td>{{ company._id }}</td>
+                <td>
+                    <span ng-hide="editMode">{{ company.name }}</span>
+                    <input type="text" ng-show="editMode" ng-model="company.name" />
+                </td>
 
-        </div>
+                <td>
+                    <span ng-hide="editMode">{{ company.numberOfEmployees }}</span>
+                    <input type="number" ng-show="editMode" ng-model="company.numberOfEmployees"  />
+                </td>
+
+                <td>
+                    <span><button type="submit" ng-hide="editMode" ng-click="editMode = true;" >Edit</button></span>
+                    <span><button type="submit" ng-show="editMode" ng-click="editMode = false;updateCompany(company)">Save</button></span>
+                    <span><input type="button" value="Delete" ng-click="deleteCompany(company._id)" /></span>
+                </td>
+            </tr>
+        </table>
     </div>
-
-    <!-- FORM TO CREATE TODOS -->
-    <div id="todo-form" class="row">
-        <div class="col-sm-8 col-sm-offset-2 text-center">
-            <form>
-                <table>
-                    <tr>
-                        <div class="form-group">
-                            <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-                            <input type="text" class="form-control input-lg text-center" placeholder="Company Name" ng-model="company.name" name="name">
-                        </div>
-                    </tr>
-                    <tr>
-                        <div class="form-group">
-                            <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-                            <input type="text" class="form-control input-lg text-center" placeholder="No Of Employees" ng-model="company.numberOfEmployees" name="numberOfEmployees">
-                        </div>
-                    </tr>
-                <!-- createToDo() WILL CREATE NEW TODOS -->
-                <button type="submit" class="btn btn-primary btn-lg" ng-click="createCompany(company)">Add</button>
-                </table>
-            </form>
-        </div>
-    </div>
-
-    <div class="text-center text-muted">
-        <p>A demo by <a href="http://scotch.io">Scotch</a>.</p>
-        <p>Read the <a href="http://scotch.io/tutorials/javascript/creating-a-single-page-todo-app-with-node-and-angular">tutorial</a>.</p>
-    </div>
-
+    <br/>
 </div>
 </body>
-
 </html>

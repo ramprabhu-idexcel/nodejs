@@ -38,7 +38,7 @@ CompanySchema.statics = {
         this.update(id, { $set: updateData }, callback);
     },
 
-    remove: function(removeData, callback){
+    removeById: function(removeData, callback){
         this.remove(removeData, callback);
     },
 

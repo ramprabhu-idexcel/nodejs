@@ -1,10 +1,10 @@
 var companyTodo = angular.module('companyTodo', []);
 
-companyTodo.controller("companyController", function($scope, $http){
-    $scope.formData = {};
+companyTodo.controller("companyController", function($scope, $http, companyService){
+    $scope.company = {};
 
     // when landing on the page, get all companies and show them
-    $http.get("/api/companies")
+    companyService.loadCompanies()
         .success(function(data){
             $scope.companies = data;
         })
@@ -14,9 +14,9 @@ companyTodo.controller("companyController", function($scope, $http){
 
     // when submitting form & send text to Node API
     $scope.createCompany = function(company){
-        $http.post("/api/companies", company)
+        companyService.createCompany(company)
             .success(function(data){
-                $scope.formData = {};
+                $scope.company = {};
                 $scope.companies = data;
                 console.log(data);
             })
@@ -27,7 +27,18 @@ companyTodo.controller("companyController", function($scope, $http){
 
     // delete a company after checking it
     $scope.deleteCompany = function(id){
-        $http.delete("/api/company/"+ id)
+        companyService.deleteCompany(id)
+            .success(function(data){
+                $scope.companies = data;
+            })
+            .error(function(data){
+                console.log("Error: "+ data);
+            })
+    };
+
+    // update a company when submitting form
+    $scope.updateCompany = function(company){
+        companyService.updateCompany(company._id, company)
             .success(function(data){
                 $scope.companies = data;
             })
