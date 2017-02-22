@@ -38,7 +38,10 @@ companyTodo.controller("companyController", function($scope, $http, companyServi
 
     // update a company when submitting form
     $scope.updateCompany = function(company){
-        companyService.updateCompany(company._id, company)
+        var tempCompany = { name: company.name,
+            numberOfEmployees: company.numberOfEmployees
+        };
+        companyService.updateCompany(company._id, tempCompany)
             .success(function(data){
                 $scope.companies = data;
             })
