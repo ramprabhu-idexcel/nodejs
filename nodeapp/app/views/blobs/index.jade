@@ -12,7 +12,7 @@ block content
                 = blob.isloved
                 = blob._id
                 form(action='/blobs/#{blob._id}/edit',method='post',enctype='application/x-www-form-urlencoded')
-                    input(type='hidden',value='DELETE',name='_method')
+                    input(type='hidden',value='DELETE',name='_method', method="DELETE")
                     button(type='submit').
                         Delete
                 p

@@ -23,7 +23,7 @@ app.set('view engine', 'jade');
 var db = require('./config/db');
 
 // initialize model
-var blob = require('./app/model/blobs');
+var blob = require('./app/models/blobs');
 
 // include routes
 var routes = require('./config/routes/index'),

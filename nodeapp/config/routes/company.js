@@ -1,4 +1,4 @@
-var Company = require(__base + 'app/controller/company');
+var Company = require(__base + 'app/controllers/company');
 
 // API server
 module.exports = function(router){

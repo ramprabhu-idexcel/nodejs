@@ -36,6 +36,10 @@ blobSchema.statics = {
     create: function(data, callback){
         var blob = new this(data);
         blob.save(callback);
+    },
+
+    show: function(id, callback){
+
     }
 };
 

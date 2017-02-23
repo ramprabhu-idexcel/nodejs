@@ -1,6 +1,6 @@
 'use strict';
 
-var Company =  require(__base + "app/model/company").Company;
+var Company =  require(__base + "app/models/company").Company;
 
 /**
  * All companies
