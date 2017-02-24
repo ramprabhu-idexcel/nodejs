@@ -6,9 +6,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
 
 var index = require('./config/routes/index');
-var users = require('./config/routes/users');
 
 var app = express();
 var router = express.Router();
@@ -22,14 +22,17 @@ app.set('view engine', 'jade');
 // connect db
 var db = require('./config/db');
 
+// connect passport
+require('./config/passport');
+
 // initialize model
 var blob = require('./app/models/blobs');
 
 // include routes
 var routes = require('./config/routes/index'),
     blobs = require('./config/routes/blobs'),
-    company = require('./config/routes/company')(router);
-
+    company = require('./config/routes/company')(router),
+    users = require('./config/routes/users');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -45,6 +48,9 @@ app.use(router);
 //app.use('/users', users);
 app.use('/', routes);
 app.use('/blobs', blobs);
+
+app.use(passport.initialize());
+app.use('/api/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -63,5 +69,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;
