@@ -12,7 +12,6 @@ router.use(methodOverride('_method'));
 
 var Blob = require(__base + 'app/controllers/blobs');
 
-
 router.get("/", Blob.index);
 
 router.post("/", Blob.create);

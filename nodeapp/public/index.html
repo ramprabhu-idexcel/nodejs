@@ -5,12 +5,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <link rel="stylesheet" type="text/css" href="stylesheets/main.css" />
     <script src="javascripts/controllers/companyController.js"></script>
+    <script src="javascripts/directives/companyDirective.js"></script>
     <script src="javascripts/services/companyService.js"></script>
+    <script src="javascripts/controllers/employeeController.js"></script>
+    <script src="javascripts/services/employeeService.js"></script>
 </head>
 <body>
 <div ng-controller="companyController">
 
-    <h2> Add new book </h2>
+    <div my-info-msg></div>
+
+    <h2> Add new company </h2>
     <div style="border: 1px solid blue">
         <form name="CompanyForm">
             <table>
@@ -46,12 +51,10 @@
                     <span ng-hide="editMode">{{ company.name }}</span>
                     <input type="text" ng-show="editMode" ng-model="company.name" />
                 </td>
-
                 <td>
                     <span ng-hide="editMode">{{ company.numberOfEmployees }}</span>
                     <input type="number" ng-show="editMode" ng-model="company.numberOfEmployees"  />
                 </td>
-
                 <td>
                     <span><button type="submit" ng-hide="editMode" ng-click="editMode = true;" >Edit</button></span>
                     <span><button type="submit" ng-show="editMode" ng-click="editMode = false;updateCompany(company)">Save</button></span>

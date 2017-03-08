@@ -18,6 +18,7 @@ global.__base = __dirname + '/';
 // view engine setup
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'jade');
+app.set('view engine', 'ejs');
 
 // connect db
 var db = require('./config/db');
@@ -32,6 +33,7 @@ var blob = require('./app/models/blobs');
 var routes = require('./config/routes/index'),
     blobs = require('./config/routes/blobs'),
     company = require('./config/routes/company')(router),
+    employees = require('./config/routes/employee'),
     users = require('./config/routes/users');
 
 // uncomment after placing your favicon in /public
@@ -48,9 +50,11 @@ app.use(router);
 //app.use('/users', users);
 app.use('/', routes);
 app.use('/blobs', blobs);
+app.use('/employees', employees);
 
 app.use(passport.initialize());
 app.use('/api/users', users);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,0 +1,74 @@
+<div ng-controller="employeeController">
+
+    <div my-info-msg></div>
+
+    <h2> Add new employee </h2>
+    <div style="border: 1px solid blue">
+        <form name="EmployeeForm">
+            <table>
+                <tr>
+                    <td>Name: </td>
+                    <td> <input type="text" ng-model="employee.name" name="name" required/></td>
+                    <td><span style="color: red;" ng-show="EmployeeForm.name.$error.required">Employee name is required</span></td>
+                </tr>
+                <tr>
+                    <td>EmpNo: </td>
+                    <td> <input type="number" ng-model="employee.empno" name="empno" required/></td>
+                    <td><span style="color: red;" ng-show="EmployeeForm.empno.$error.required">Employee no is required</span></td>
+                </tr>
+                <tr>
+                    <td>Salary: </td>
+                    <td> <input type="number" ng-model="employee.salary" name="salary" required/></td>
+                    <td><span style="color: red;" ng-show="EmployeeForm.salary.$error.required">Salary is required</span></td>
+                </tr>
+                <tr>
+                    <td>HireDate: </td>
+                    <td> <input type="text" ng-model="employee.hiredate" name="hiredate" required/></td>
+                    <td><span style="color: red;" ng-show="EmployeeForm.hiredate.$error.required">Hire Date is required</span></td>
+                </tr>
+                <tr>
+                    <td>DOB: </td>
+                    <td> <input type="text" ng-model="employee.dob" name="dob" required/></td>
+                    <td><span style="color: red;" ng-show="EmployeeForm.dob.$error.required">Dob is required</span></td>
+                </tr>
+                <tr>
+                     <td>Department: </td>
+                     <td> <input type="text" ng-model="employee.dept" name="dept" required/></td>
+                     <td><span style="color: red;" ng-show="EmployeeForm.dept.$error.required">Department is required</span></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="Button" value="Add to list" ng-click="employee && createEmployee(employee)" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <div style="padding-top:15px;">
+        <table border="1" class="mytable">
+            <tr>
+                <td>Name</td>
+                <td>NumberOfEmployees</td>
+                <td>Action</td>
+            </tr>
+
+            <tr ng-repeat="company in companies">
+                <td>
+                    <span ng-hide="editMode">{{ company.name }}</span>
+                    <input type="text" ng-show="editMode" ng-model="company.name" />
+                </td>
+                <td>
+                    <span ng-hide="editMode">{{ company.numberOfEmployees }}</span>
+                    <input type="number" ng-show="editMode" ng-model="company.numberOfEmployees"  />
+                </td>
+                <td>
+                    <span><button type="submit" ng-hide="editMode" ng-click="editMode = true;" >Edit</button></span>
+                    <span><button type="submit" ng-show="editMode" ng-click="editMode = false;updateCompany(company)">Save</button></span>
+                    <span><input type="button" value="Delete" ng-click="deleteCompany(company._id)" /></span>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <br/>
+</div>

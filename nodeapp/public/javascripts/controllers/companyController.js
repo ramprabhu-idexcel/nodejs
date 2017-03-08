@@ -19,6 +19,7 @@ companyTodo.controller("companyController", function($scope, $http, companyServi
                 $scope.company = {};
                 $scope.companies = data;
                 console.log(data);
+                $scope.message = "Company has been created successfully."
             })
             .error(function(data){
                 console.log("Error: "+ data);
